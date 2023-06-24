@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int n; cin >> n;
+		vector<int> chan, le;
+		for(int i = 1; i <= n; i++)
+			{
+				int x; cin >> x;
+				if(i % 2 == 0)
+					chan.push_back(x);
+				else le.push_back(x);
+			}
+		sort(chan.begin(), chan.end(), greater<int>());
+		sort(le.begin(), le.end());
+		int h = 0, k = 0;
+		for(int i = 1; i <= n ;i++)
+			{
+				if(i % 2 == 1)
+					cout << le[k++] << ' ';
+				else cout << chan[h++] <<' ';
+			}
+		cout << endl;
+		return 0;
+	}

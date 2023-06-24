@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n = 8, a[100];
+vector<string> v;
+bool check()
+	{
+//		int i = 1, j = n;
+//		while(i < j)
+//			{
+//				if(a[i++] != a[j--])
+//					return false;
+//			}
+		if(!a[5]) return false;
+		if(a[1] == 0 && a[2] == 0) return false;
+		if(!(a[3] == 0 && a[4] == 1)) return false;
+		return true;
+	}
+
+void solve()
+	{
+		string s;
+		for(int i = 1; i <= n ;i++)
+			{
+				if(a[i]) s += '2';
+				else s += '0'; 
+			}
+		s.insert(2,"/");
+		s.insert(5,"/");
+		v.push_back(s);
+	}
+void Try(int i)
+	{
+		for(int j = 0; j <= 1; j++)
+			{
+				a[i] = j;
+				if(i == n)
+					{
+						if(check())
+							solve();
+					}
+				else Try(i + 1);
+			}
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+        Try(1);
+		for(auto x: v)
+			cout << x << endl;
+		return 0;
+	}

@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t =sc.nextInt();
+        while(t --> 0){
+            int k = sc.nextInt();
+            sc.nextLine();
+            String s = sc.nextLine();
+            HashMap<Character, Integer> mp = new HashMap<>();
+            for(char x: s.toCharArray()){
+                if(mp.containsKey(x))
+                    mp.put(x, mp.get(x) + 1);
+                else mp.put(x, 1);
+            }
+            PriorityQueue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
+            for(Map.Entry<Character, Integer> x: mp.entrySet()){
+                q.add(x.getValue());
+            }
+            while(k --> 0){
+                int top = q.remove();
+                top--;
+                q.add(Math.max(top, 0));
+            }
+            long ans = 0;
+            while(!q.isEmpty()){
+                int top = q.poll();
+                ans += (long)top * top;
+            }
+            System.out.println(ans);
+        }
+    }
+}

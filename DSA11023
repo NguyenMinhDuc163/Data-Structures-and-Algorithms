@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+struct node{
+	int data;
+	node *left, *right;
+	node(int x){
+		data = x;
+		left = NULL;
+		right = NULL;
+	}
+};
+
+void insert(node* &root, int x){
+	if(root == NULL){
+		root = new node(x); return;
+	}
+	if(root->data > x) insert(root->left, x);
+	if(root->data < x) insert(root->right, x);
+}
+
+int depth(node *root){
+	if(!root) return -1;
+	return max(depth(root->left), depth(root->right)) + 1;
+} 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin>> t;
+	while(t--){
+		int n; cin >> n;
+		int a[n]; node *root = NULL;
+		for(int &x: a){
+			cin >> x;
+			insert(root, x);
+		}
+		cout << depth(root) << endl;
+	}
+	return 0;
+}

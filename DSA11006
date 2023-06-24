@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+struct node{
+	int data;
+	node *left, *right;
+	node(int x){
+		data = x;
+		left = NULL;
+		right = NULL;
+	}
+};
+
+void Makenode(node *root, int n1, int n2, char c) {
+    switch (c) {
+        case 'L':
+            root->left = new node(n2);
+            break;
+        case 'R':
+            root->right = new node(n2);
+            break;
+    }
+}
+
+void insert(node *root, int n1, int n2, char c){
+	if (root == NULL)
+        return;
+    if (root->data == n1)
+        Makenode(root, n1, n2, c);
+    else {
+        insert(root->left, n1, n2, c);
+        insert(root->right, n1, n2, c);
+    }
+}
+
+void spriral (node* root)
+	{
+		stack<node*> s1, s2;
+		s1.push(root);
+		while(!s1.empty() || !s2.empty())
+			{
+				while(!s1.empty())
+					{
+						node *top = s1.top();s1.pop();
+						cout << top->data <<' ';
+						if(top -> right != NULL)
+							s2.push(top->right);
+						if(top->left != NULL)
+							s2.push(top->left);
+					}
+				while(!s2.empty())
+					{
+						node *top = s2.top(); s2.pop();
+						cout << top->data <<' ';
+						if(top-> left != NULL)
+							s1.push(top->left);
+						if(top->right != NULL)
+							s1.push(top->right);
+					}
+			}
+	}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin>> t;
+	while(t--){
+		int n; cin >> n;
+		node * root = NULL;
+		while(n--){
+			int n1, n2; char c;
+			cin >> n1 >> n2 >> c;
+			if(root == NULL){
+				root = new node(n1);
+				if(c == 'L') root->left = new node(n2);
+				else root -> right = new node(n2);
+			} else insert(root, n1, n2, c);
+		}
+		spriral(root);
+		cout << endl;
+	}
+	return 0;
+}

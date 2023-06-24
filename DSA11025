@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+struct node{
+	int data;
+	node *left, *right;
+	node(int x){
+		data = x;
+		left = NULL;
+		right = NULL;
+	}
+};
+
+node* createBST(int a[], int start, int end){
+	if(start > end) return NULL;
+	int mid = (start + end) / 2;
+	node* root = new node(a[mid]);
+	root->left = createBST(a, start, mid - 1);
+	root->right = createBST(a, mid + 1, end);
+	return root;
+}
+
+void preOrder(node *root){
+	if(root == NULL) return;
+	cout << root->data << " ";
+	if(root->left) preOrder(root->left);
+	if(root->right) preOrder(root->right);
+}
+
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin>> t;
+	while(t--){
+		int n; cin >> n;
+		int a[n]; 
+		for(int &x: a){
+			cin >> x;	
+		}
+		sort(a, a+n);
+		node *root = createBST(a, 0, n - 1);
+		preOrder(root);
+		cout << endl;
+	}
+	return 0;
+}

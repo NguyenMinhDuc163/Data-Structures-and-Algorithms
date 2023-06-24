@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+struct node{
+	int data;
+	node *left, *right;
+	node(int x){
+		data = x;
+		left = NULL;
+		right = NULL;
+	}
+};
+
+void Makenode(node *root, int n1, int n2, char c) {
+    switch (c) {
+        case 'L':
+            root->left = new node(n2);
+            break;
+        case 'R':
+            root->right = new node(n2);
+            break;
+    }
+}
+
+void insert(node *root, int n1, int n2, char c){
+	if (root == NULL)
+        return;
+    if (root->data == n1)
+        Makenode(root, n1, n2, c);
+    else {
+        insert(root->left, n1, n2, c);
+        insert(root->right, n1, n2, c);
+    }
+}
+
+bool isPerfect(node* root, int level){
+	queue<node*> q;
+	q.push(root);
+	int s = 0, f = 0, l = 0;
+	while(!q.empty()){
+		s = q.size();
+		f = 0;
+		if(s != (int)pow(2, l)) return false;
+		for(int i = 0; i < s; i++){
+			node *t = q.front(); q.pop();
+			if(t -> left) q.push(t->left);
+			if(t->right) q.push(t->right);
+		}
+		l++;
+	}
+	return true;
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin>> t;
+	while(t--){
+		int n; cin >> n;
+		node * root = NULL;
+		while(n--){
+			int n1, n2; char c;
+			cin >> n1 >> n2 >> c;
+			if(root == NULL){
+				root = new node(n1);
+				if(c == 'L') root->left = new node(n2);
+				else root -> right = new node(n2);
+			} else insert(root, n1, n2, c);
+		}
+		if(isPerfect(root, n)) cout << "Yes\n";
+		else cout << "No\n";
+}
+	return 0;
+}

@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, ok;
+vector<int> adj[1005];
+int color[1005];
+
+void init(){
+	cin >> n >> m; ok = false;
+	memset(adj, false, sizeof(adj));
+	memset(color, false, sizeof(color));
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+	}
+}
+bool dfs(int u){
+	color[u] = 1;
+	for(int x: adj[u]){
+		if(color[x] == 0){
+			if(dfs(x)) return true;
+		}
+		else if(color[x] == 1){
+			return true;
+		}
+	}
+	color[u] = 2;
+	return false;
+}
+void implement(){
+	init();
+	for(int i = 1; i <= n; i++){
+		if(!color[i] && dfs(i)){
+				ok = true;
+		}
+	}
+	if(ok) cout << "YES";
+	else cout << "NO";
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

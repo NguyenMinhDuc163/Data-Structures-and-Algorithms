@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				int n; cin >> n;
+				int a[n], b[n], ok = 1;
+				for(int i = 0; i < n; i++)
+					{
+						cin >> a[i];
+						b[i] = a[i];
+					}
+				sort(b,b+n);
+				for(int i = 0; i < n ;i++)
+					{
+						if(a[i] != b[n - i - 1] && a[i] != b[i])
+							{
+								cout << "No\n";
+								ok = 0;
+								break;
+							}
+					}
+				if(ok)
+					cout << "Yes\n";
+			}
+		return 0;
+	}

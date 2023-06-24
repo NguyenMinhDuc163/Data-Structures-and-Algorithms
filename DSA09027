@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, sz[1005], par[1005];
+void init(){
+	cin >> n >> m;
+	for(int i = 1; i <= n; i++){
+		par[i] = i;
+		sz[i] = 1;
+	}
+}
+
+int Find(int u){
+	if(u == par[u])
+		return u;
+	else return par[u] = Find(par[u]);
+}
+
+void Union(int u, int v){
+	u = Find(u); v = Find(v);
+	if(u == v) return;
+	if(sz[u] < sz[v]){
+		par[u] = v;
+		sz[v] += sz[u];
+	}
+	else{
+		par[v] = u;
+		sz[u] += sz[v];
+	}
+}
+void implement(){
+	init();
+	while(m--){
+		int x, y; cin >> x >> y;
+		Union(x, y);	
+	}
+	int q; cin >> q;
+	while(q--){
+		int u, v; cin >> u >> v;
+		if(Find(u) == Find(v))
+			cout << "YES\n";
+		else cout << "NO\n";
+	}
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		// cout << endl;
+	}
+	return 0;
+}

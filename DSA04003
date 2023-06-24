@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 123456789;
+
+int powMod(int a, int b)
+	{
+		int res = 1;
+		a %= mod;
+		while(b) 
+			{
+				if(b % 2 == 1)
+					{
+						res *= a;
+						res %= mod;
+					}
+				b /= 2;
+				a *= a;
+				a %= mod;
+			}
+		return res;
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				int n; cin >> n;
+				cout << powMod(2, n - 1)<< "\n";
+			}
+		return 0;
+	}

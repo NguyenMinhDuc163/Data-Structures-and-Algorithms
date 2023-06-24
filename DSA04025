@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+struct matrix
+	{
+		int a[2][2];
+		matrix operator * (matrix b)
+			{
+				matrix res;
+				for(int i = 0; i < 2 ;i++)
+					{
+						for(int j = 0; j < 2; j++)
+							{
+								res.a[i][j] = 0;
+								for(int k = 0; k < 2; k++)
+									{
+										res.a[i][j] += a[i][k] * b.a[k][j];
+										res.a[i][j] %= mod;
+									}
+							}
+					}
+				return res;
+			}
+	};
+
+matrix powMod(matrix a, int n)
+	{
+		if(n == 1) return a;
+		matrix tmp = powMod(a, n / 2);
+		if(n % 2 == 1) return tmp * tmp * a;
+		else return tmp * tmp;
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		matrix f;
+		f.a[0][0] = 1;
+		f.a[1][0] = 1;
+		f.a[0][1] = 1;
+		f.a[1][1] = 0;
+		while(t--)
+			{
+				int n; cin >> n;
+				matrix tmp = powMod(f, n);
+				cout << tmp.a[0][1] << endl;
+			}
+		return 0;
+	}

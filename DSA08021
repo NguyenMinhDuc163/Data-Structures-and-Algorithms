@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int d[1005][1005];
+int a[1005][1005];
+int visited[1005][1005];
+int n, m;
+
+int bfs(int i, int j) {
+    queue<pair<int, int>> q;
+    q.push(make_pair(i, j));
+    d[i][j] = 0;
+    while(!q.empty()) {
+        pair<int, int> top = q.front();
+        q.pop();
+        int i1 = top.first, j1 = top.second;
+        if(i1 == n && j1 == m)
+            return d[i1][j1];
+        if(i1 + a[i1][j1] <= n && visited[i1 + a[i1][j1]][j1] == 0){
+            q.push(make_pair(i1 + a[i1][j1], j1));
+            d[i1 + a[i1][j1]][j1] = d[i1][j1] + 1;
+            visited[i1 + a[i1][j1]][j1] = 1;
+        }
+        if(j1 + a[i1][j1] <= m && visited[i1][j1 + a[i1][j1]] == 0){
+            q.push(make_pair(i1, j1 + a[i1][j1]));
+            d[i1][j1 + a[i1][j1]] = d[i1][j1] + 1;
+            visited[i1][j1 + a[i1][j1]] = 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        cin >> n >> m;
+        memset(d, 0, sizeof(d));
+        memset(visited, 0, sizeof(visited));
+        for(int i = 1; i <= n ;i++){
+            for(int j = 1; j <= m ;j++){
+                cin >> a[i][j];
+            }
+        }
+        cout << bfs(1,1) << endl;
+    }
+    return 0;
+}

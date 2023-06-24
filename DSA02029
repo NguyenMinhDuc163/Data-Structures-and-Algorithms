@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+void chuyen(char a, char b)
+	{
+		cout << a << " -> " << b << endl;
+	}
+void thapHN(int n, char a, char b, char c)
+	{
+		if(n == 1) chuyen(a, c);
+		else
+			{
+				thapHN(n - 1, a, c, b);
+				chuyen(a, c);
+				thapHN(n - 1,b, a , c);
+			}
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int n; cin >> n;
+		char a = 'A', b = 'B', c = 'C';
+		thapHN(n, a, b, c);
+		return 0;
+	}

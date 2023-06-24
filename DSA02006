@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, s, a[100], x[100];
+vector<string> ans;
+bool check(){
+	int sum = 0;
+	for(int i = 1; i <= n ;i++){
+		if(x[i])
+			sum += a[i];
+	}
+	return sum == s;
+}
+
+void in(){
+	string s = "[";
+	for(int i = 1; i <= n; i++){
+		if(x[i])
+			s += to_string(a[i]) + " ";
+	}
+	s.pop_back();
+	s += ']';
+	ans.push_back(s);
+}
+void Try(int i){
+	for(int j = 0; j <= 1; j++){
+		x[i] = j;
+		if(i == n){
+			if(check())
+				in();
+		}		
+		else Try(i + 1);
+	}
+}
+
+void init(){
+	cin >> n >> s;
+	memset(a, false, sizeof(a));
+	memset(x, false, sizeof(x));
+	ans.clear();
+	for(int i = 1; i <= n ;i++)
+		cin >> a[i];
+	sort(a + 1,a + n + 1);
+}
+void implement(){
+	init();
+	Try(1);
+	if(ans.empty()){
+		cout << "-1";
+		return;
+	}
+	reverse(ans.begin(), ans.end());
+	for(string x: ans)
+		cout << x << " ";
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

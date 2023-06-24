@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int n, m;
+vector<int> adj[1005];
+bool visited[1005];
+
+void init(){
+	memset(visited, false , sizeof(visited));
+	memset(adj, false , sizeof(adj));
+	cin >> n >> m;
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+}	
+
+void dfs(int u){
+	visited[u] = true;
+	for(int x: adj[u]){
+		if(!visited[x])
+			dfs(x);
+	}
+}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--){
+			init();
+			int cnt = 0;
+			for(int i = 1; i <= n ;i++){
+				if(!visited[i]){
+					cnt++;
+					dfs(i);
+				}
+			}
+			vector<int> ans;
+			for(int i = 1; i <= n; i++){
+				int dem = 0;
+				memset(visited, false, sizeof(visited));
+				visited[i] = true;
+				for(int i = 1; i <= n ;i++){
+					if(!visited[i]){
+						dfs(i);
+						dem++;
+					}
+				}
+				if(dem > cnt)
+					ans.push_back(i);
+			}
+			for(int x: ans)
+				cout << x << ' ';
+			cout << endl;
+		}
+		return 0;
+	}

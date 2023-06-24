@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		string s;
+		int t; cin >> t;
+		stack<int> st;
+		while(cin >> s)
+			{
+				if(s == "PUSH")
+					{
+						int x; cin >> x;
+						st.push(x);
+					}
+				else if(s == "PRINT")
+					{
+						if(!st.empty())
+							cout << st.top() << endl;
+						else cout <<"NONE\n";
+					}
+				else
+					{
+						if(!st.empty())
+							st.pop();
+					}
+			}
+		return 0;
+	}

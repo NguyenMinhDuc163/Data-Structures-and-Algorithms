@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m;
+int d[1005][1005];
+
+void init(){
+	cin >> n >> m;
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= n; j++){
+			if(i == j) d[i][j] = 0;
+			else d[i][j] = 1e9;
+		}
+	}
+	while(m--){
+		int x, y, w; cin >> x >> y >> w;
+		d[x][y] = d[y][x] = w;
+	}
+}
+
+void Floy(){
+	for(int k = 1; k <= n; k++){
+		for(int u = 1; u <= n; u++){
+			for(int v = 1; v <= n; v++){
+				d[u][v] = min(d[u][v], d[u][k] + d[k][v]);
+			}
+		}
+	}
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);cout.tie(0);
+	init();
+	Floy();
+	int q; cin >> q;
+	while(q--){
+		int x, y; cin >> x >> y;
+		cout << d[x][y] << endl;
+	}
+	return 0;
+}

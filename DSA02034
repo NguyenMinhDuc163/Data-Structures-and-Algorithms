@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+bool check(int a[], int n){
+    for(int i = 2; i <= n; i++){
+        if(abs(a[i] - a[i - 1]) == 1)
+            return false;
+    }
+    return true;
+}
+void implement(){
+    int n; cin >> n;
+    int a[n + 1]; 
+    for(int i = 1; i <= n; i++)
+        a[i] = i;
+    do{
+        if(check(a, n)){
+            for(int i = 1; i <= n; i++)
+                cout << a[i];
+            cout << endl;
+        }
+    }
+    while(next_permutation(a + 1, a + n + 1));
+}
+int32_t main(){
+    if(fopen("input.txt", "r")){
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+    }
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t; cin >> t;
+    while(t--){
+        implement();
+        cout << endl;
+    }
+    return 0;
+}

@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+#define iii pair<int, pair<int,int>>
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int dx[4] = {-1, 0, 0, 1};
+int dy[4] = {0, -1, 1, 0};
+int n, m, a[1005][1005];
+int dist[1005][1005];
+
+void init(){
+	memset(a, false,sizeof(a));
+	memset(dist, false,sizeof(dist));
+	cin >> n >> m;
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= m; j++){
+			cin >> a[i][j];
+			dist[i][j] = 1e9;
+		}
+	}
+}
+
+void dijkstra(int s, int t){
+	priority_queue<iii, vector<iii>, greater<iii>> q;
+	q.push({a[s][t],{s, t}});
+	dist[s][t] = a[s][t];
+	while(!q.empty()){
+		iii top = q.top(); q.pop();
+		int i = top.second.first, j = top.second.second, d = top.first;
+		if(d > dist[i][j]) continue;
+		for(int k = 0; k < 4; k++){
+			int i1 = i + dx[k], j1 = j + dy[k];
+			if(i1 >= 1 && i1 <= n && j1 >= 1 && j1 <= m){
+				if(dist[i1][j1] > dist[i][j] + a[i1][j1]){
+					dist[i1][j1] = dist[i][j] + a[i1][j1];
+					q.push({dist[i1][j1], {i1, j1}});
+				}
+			}
+		}	
+	}
+	cout << dist[n][m] << endl;;
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t; cin >> t;
+    while(t--){
+    	init();
+		dijkstra(1, 1);
+	}
+	
+	return 0;
+}

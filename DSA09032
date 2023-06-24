@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+#include<math.h>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int par[100001], sz[100001], ans, n ,m;
+
+int find(int u){
+	if(u != par[u])
+		par[u] = find(par[u]);
+	return par[u];
+}
+
+void Union(int u, int v){
+	int a = find(u), b = find(v);
+	if(a == b) return;
+	if(sz[a] < sz[b]) swap(a, b);
+	par[b] = a;
+	sz[a] += sz[b];
+	ans = max(ans, sz[a]);
+}
+void init(){
+	memset(par, false, sizeof(par));
+	memset(sz, false, sizeof(sz));
+	cin >> n >> m;
+	for(int i = 1; i <= n; i++){
+		par[i] = i;
+		sz[i] = 1;
+	}
+	ans = 0;
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t; cin >> t;
+    while(t--){   	
+  	 	init();
+    	while(m--){
+    		int x, y; cin >> x >> y;
+    		Union(x, y);
+		}
+		cout << ans << endl;
+	}
+	return 0;
+}

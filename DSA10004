@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m;
+int degree[1005];
+
+void init(){
+	cin >> n >> m;
+	memset(degree, false, sizeof(degree));
+	while(m--){
+		int x, y; cin >> x >> y;
+		degree[x]++;
+		degree[y]++;
+	}
+}
+
+bool EulerCycle(){
+	for(int i = 1; i <= n ;i++){
+		if(degree[i] % 2 == 1)
+			return false;
+	}
+	return true;
+}
+
+bool Eulerpath(){
+	int cnt = 0;
+	for(int i = 1; i <= n; i++){
+		if(degree[i] % 2 == 1)
+			cnt++;
+	}
+	return cnt == 2;
+}
+void implement(){
+	init();
+	if(EulerCycle()) cout << "2";
+	else if(Eulerpath()) cout << "1";
+	else cout << "0";
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

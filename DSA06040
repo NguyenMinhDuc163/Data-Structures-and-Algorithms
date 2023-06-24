@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				int N1, N2, N3;
+			    cin >> N1 >> N2 >> N3;
+			    int A[N1], B[N2], C[N3];
+			    for (int i = 0; i < N1; i++) cin >> A[i];
+			    for (int i = 0; i < N2; i++) cin >> B[i];
+			    for (int i = 0; i < N3; i++) cin >> C[i];
+			    int i = 0, j = 0, k = 0, ok = false;
+			    while (i < N1 && j < N2 && k < N3) {
+			        if (A[i] == B[j] && B[j] == C[k]) {
+			            cout << A[i] << " ";
+			            ok = true;
+			            i++; j++; k++;
+			        } else if (A[i] <= B[j] && A[i] <= C[k]) {
+			            i++;
+			        } else if (B[j] <= A[i] && B[j] <= C[k]) {
+			            j++;
+			        } else {
+			            k++;
+			        }
+			    }
+			    if (!ok) cout << -1;
+			    cout << endl;
+			}
+		return 0;
+	}

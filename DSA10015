@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, par[1005], sz[1005];
+struct edge{
+	int x, y, w;
+};
+vector<edge> E;
+
+void init(){
+	cin >> n >> m;
+	memset(sz, false, sizeof(sz));
+	memset(par, false, sizeof(par));
+	E.clear();
+	for(int i = 1; i <= n; i++){
+		par[i] = i;
+		sz[i] = 1;
+	}
+	while(m--){
+		int x, y, w; cin >> x >> y >> w;
+		edge e({x, y, w});
+		E.push_back(e);
+	}
+}
+
+int Find(int u){
+	if(u == par[u])
+		return u;
+	else	
+		return par[u] = Find(par[u]);
+}
+bool Union(int u, int v){
+	u = Find(u); v = Find(v);
+	if(u == v) return false;
+	if(sz[u] < sz[v]){
+		par[u] = v;
+		sz[v] += sz[u];
+	}
+	else{
+		par[v] = u;
+		sz[u] += sz[v];
+	}
+	return true;
+}
+
+void Kruskal(){
+	vector<edge> MST;
+	int d = 0;
+	sort(E.begin(), E.end(),[](edge a, edge b){
+		return a.w < b.w;
+	});
+
+	for(edge e: E){
+		if(MST.size() == n - 1)
+			break;
+		if(Union(e.x, e.y)){
+			MST.push_back(e);
+			d += e.w;
+		}
+	}
+	cout << d;
+}
+void implement(){
+	init();
+	Kruskal();
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

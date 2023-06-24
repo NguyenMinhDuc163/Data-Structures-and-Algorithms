@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e6 + 7;
+const int mod = 1e9 + 7;
+
+int cnt[maxn];
+bool cmp(int a, int b)
+	{
+		if(cnt[a] != cnt[b])
+			return cnt[a] > cnt[b];
+		else
+			return a < b;
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				int n; cin >> n;
+				int a[n];
+				memset(cnt,false,sizeof(cnt));
+				for(int &x : a)
+					{
+						cin >> x;
+						cnt[x]++;
+					}
+				sort(a,a+n, cmp);
+				for(int x: a)
+					cout << x <<' ';
+				cout << endl;
+			}
+		return 0;
+	}

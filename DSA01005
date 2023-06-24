@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, a[1005];
+bool used[1005];
+void in()
+	{
+		for(int i = 1; i <= n ;i++)
+			cout << a[i];
+		cout << ' ';
+	}
+
+void Try(int i)
+	{
+		for(int j = 1; j <= n ; j++)
+			{
+				if(!used[j])
+					{
+						a[i] = j; used[j] = true;
+						if(i == n)
+							in();
+						else
+							Try(i+1);
+						used[j] = false;
+					}
+			}
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+        int t; cin >> t;
+        while(t--)
+        	{
+        		memset(a,false, sizeof(a));
+        		memset(used,false, sizeof(used));
+        		cin >> n;
+				Try(1);
+				cout << endl;
+			}
+		
+		return 0;
+	}

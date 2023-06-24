@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				deque<int> dq;
+				int k; cin >> k;
+				while(k--)
+					{
+						int n; cin >> n;
+						switch(n)
+						{
+							case 1:
+							cout << dq.size()<< "\n";
+							break;
+								case 2:
+									if(!dq.empty())
+										cout <<  "NO\n";
+									else cout <<"YES\n";
+									break;
+								case 3:
+									int x; cin >> x;
+									dq.push_back(x);
+									break;
+								case 4:
+									if(!dq.empty())
+										dq.pop_front();
+									break;
+								case 5:
+									if(!dq.empty())
+										cout << dq.front() << endl;
+									else cout <<"-1\n";
+									break;
+								default:
+									if(!dq.empty())
+									cout << dq.back() << endl;
+									else cout <<"-1\n";
+						}
+					}
+			}
+		return 0;
+	}

@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+bool check(string s){
+	stack<char> st;
+	for(char x: s){
+		if(x != ')') st.push(x);
+		else{
+			bool ok = true;
+			while(st.top() != '('){
+				char c = st.top(); st.pop();
+				if(!isalpha(c))
+					ok = false;
+			}
+			if(ok) return true;
+			st.pop();
+		}
+	}
+	return false;
+}
+void implement(){
+	string s; cin >> s;
+	if(check(s)) cout << "Yes";
+	else cout << "No";
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

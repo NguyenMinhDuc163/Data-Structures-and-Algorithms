@@ -1,0 +1,31 @@
+import java.net.ServerSocket;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static boolean isOperator(Character c){
+        return c == '+' || c == '-' || c == '*' || c == '/';
+    }
+    public static void solve(String s){
+        Stack<String> st = new Stack<>();
+        for(char c: s.toCharArray()){
+            if(!isOperator(c))
+                st.push(Character.toString(c));
+            else{
+                String x = st.pop();
+                String y = st.pop();
+                st.push(c + y + x);
+            }
+        }
+        System.out.println(st.pop());
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t --> 0){
+            String s = sc.nextLine();
+            solve(s);
+        }
+    }
+}

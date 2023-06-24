@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--)
+			{
+				int n, k; cin >> n >> k;
+				int a[n];
+				for(int &x : a) cin >> x;
+				auto it = lower_bound(a, a+n, k);
+				if(it != a + n && *it == k)
+					cout << distance(a, it) + 1 << endl;
+				else cout << "NO\n";
+			}
+		return 0;
+	}

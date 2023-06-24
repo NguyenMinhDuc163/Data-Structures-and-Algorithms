@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, ok = true;
+string s;
+
+void init()
+	{
+		cin >> n;
+		s = string(n,'6');
+	}
+void next()
+	{
+		int i = s.size() - 1;
+		while(i >= 0 && s[i] == '8')
+			{
+				s[i] = '6';
+				--i;
+			}
+		if(i == -1) ok = 0;
+		else s[i] = '8';
+	}	
+
+bool check()
+	{
+		if(s[0] == '6' || s[n - 1] == '8') return false;
+		if(s.find("88") != string::npos) return false;
+		if(s.find("6666") != string::npos) return false;
+		return true;
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		init();
+		while(ok)
+			{
+				if(check())
+					cout << s << endl;
+				next();
+			}
+		return 0;
+	}

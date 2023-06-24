@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e6 + 7;
+const int mod = 1e9 + 7;
+
+int n, k, a[100], res[maxn],cnt = 0;
+
+bool check()
+	{
+		int sum = 0;
+		for(int i = 1; i <= n ;i++)
+			{
+				if(a[i] == 1)
+					sum += res[i];
+			}
+		return sum == k;
+	}
+void in()
+	{
+		for(int i = 1; i <= n; i++)
+			{
+				if(a[i] == 1)
+					cout << res[i] <<' ';
+			}
+		cout << endl;
+	}
+void Try(int i)
+	{
+		for(int j = 0; j <= 1 ;j++)
+			{
+				a[i] = j;
+				if(i == n)
+					{
+						if(check())
+							{
+								in();
+								cnt++;
+							}
+							
+					}
+				else
+					Try(i+1);
+			}
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		cin >> n >> k;
+		for(int i = 1; i <= n ;i++)
+			cin >> res[i];
+		Try(1);
+		cout << cnt << endl;
+		return 0;
+	}

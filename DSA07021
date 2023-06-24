@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int solve(string s){
+	stack<int> st;
+	st.push(-1);
+	int ans = 0;
+	for(int i = 0; i < s.size(); i++){
+		if(s[i] == '(') st.push(i);
+		else{
+			st.pop();
+			if(!st.empty()){
+				int j = st.top();
+				ans = max(ans, i - j);
+			}
+			else st.push(i);
+			
+		}
+	}
+	return ans;
+}
+void implement(){
+	string s; cin >> s;
+	cout << solve(s);
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

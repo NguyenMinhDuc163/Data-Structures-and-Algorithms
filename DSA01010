@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+void implement(){
+	int n, k; cin >> n >> k;
+	int a[n + 5]; set<int> se;
+	for(int i = 1; i <= k; i++){
+		cin >> a[i];
+		se.insert(a[i]);
+	}		
+	int i = k, ans = 0;
+	while(i >= 1 && a[i] == n - k + i)
+		i--;
+	if(i != 0){
+		a[i]++;
+		for(int j = i + 1; j <= k ;j++)
+			a[j] = a[j - 1] + 1;
+		for(int i = 1; i <= k; i++){
+			if(se.count(a[i]) == 0) ans++;
+		}
+		cout << ans;
+	}
+	else
+		cout << k;
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

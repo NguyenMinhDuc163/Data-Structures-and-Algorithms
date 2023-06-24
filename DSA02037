@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ii long long
+#define maxn (int)1e7 + 7
+#define mod 1e9 + 7
+int n, a[100], x[100];
+int p[maxn];
+vector<string> ans;
+void sang(){
+	p[0] = p[1] = 1;
+	for(int i = 2; i <= sqrt(maxn); i++){
+		if(!p[i]){
+			for(int j = i * i; j <= maxn; j += i)
+				p[j] = 1;
+		}
+	}
+}
+
+bool check(){
+	int sum = 0;
+	for(int i = 1; i <= n; i++){
+		if(x[i]){
+			sum += a[i];
+		}
+	}
+	return !p[sum];
+}
+
+void in(){
+	string s;
+	for(int i = 1; i <= n; i++){
+		if(x[i]){
+			s += to_string(a[i]) + " ";
+		} 
+	}
+	ans.push_back(s);
+}
+void Try(int i){
+	for(int j = 0; j <= 1; j++){
+		x[i] = j;
+		if(i == n){
+			if(check())
+				in();
+		}
+		else Try(i + 1);
+	}
+}
+
+void init(){
+	cin >> n;
+	memset(a, false, sizeof(a));
+	memset(x, false, sizeof(x));
+	ans.clear();
+	for(int i = 1; i <= n; i++)
+		cin >> a[i];
+	sort(a + 1, a + n + 1, greater<int>());
+}
+void implement(){
+	init();
+	Try(1);
+	for(auto x: ans)
+		cout << x << endl;
+}
+
+int32_t main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	sang();
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

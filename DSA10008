@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+#define ii pair<int, int> 
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, s;
+vector<ii> adj[1005];
+
+void init(){
+	cin >> n >> m >> s;
+	memset(adj, false, sizeof(adj));
+	while(m--){
+		int x, y, z; cin >> x >> y >> z;
+		adj[x].push_back({y, z});
+		adj[y].push_back({x, z});
+	}
+}
+
+void dijstra(int s){
+	vector<int> dist(n + 5, 1e9);
+	priority_queue<ii, vector<ii>, greater<ii>> q;
+	dist[s] = 0;
+	q.push({0, s});
+	while(!q.empty()){
+		ii top = q.top(); q.pop();
+		int d = top.first, u = top.second;
+		if(d > dist[u]) continue;
+		for(auto it: adj[u]){
+			int w = it.second, v = it.first;
+			if(dist[v] > dist[u] + w){
+				dist[v] = dist[u] + w;
+				q.push({dist[v], v});
+			}
+		}
+	}
+	for(int i = 1; i <= n ;i++){
+		cout << dist[i] <<' ';
+	}
+	cout << endl;
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		init();
+		dijstra(s);
+	}
+	return 0;
+}

@@ -1,0 +1,24 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static int f[] = new int[10005];
+    public static void dp(){
+        f[1] = 1; f[2] = 2; f[3] = 3;
+        for(int i = 4; i <= 10000; i++){
+            f[i] = i;
+            for(int j = 1; j <= Math.sqrt(i); j++){
+                f[i] = Math.min(f[i], f[i - j * j] + 1);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        dp();
+        while(t --> 0){
+            int n = sc.nextInt();
+            System.out.println(f[n]);
+        }
+    }
+}

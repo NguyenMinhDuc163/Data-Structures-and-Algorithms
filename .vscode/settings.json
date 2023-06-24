@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "dsa04015": "cpp",
+        "dsa04020": "cpp",
+        "dsa06008": "cpp",
+        "dsa06025": "cpp",
+        "string": "cpp",
+        "iostream": "cpp",
+        "dsa07023": "cpp",
+        "dsa09024": "cpp"
+    }
+}

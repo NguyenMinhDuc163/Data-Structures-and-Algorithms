@@ -1,0 +1,51 @@
+import java.util.Scanner;
+import java.util.SimpleTimeZone;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), s = sc.nextInt();
+        int x = s;
+        if(s == 0 || s > 9 * n){
+            System.out.println("-1 -1");
+            return;
+        }
+        int []bigNum = new int[100];
+        int []smallNum = new int[100];
+        smallNum[0] = 1;
+        s--;
+        for(int i = n - 1; i >= 0; i--){
+            if(s >= 9){
+                smallNum[i] = 9;
+                s -= 9;
+            }
+            else{
+                if(i == 0)
+                    smallNum[i] = s + 1;
+                else{
+                    smallNum [i]= s;
+                }
+                s = 0;
+                break;
+            }
+        }
+        for(int i = 0; i < n ;i++){
+            if(x >= 9){
+                bigNum[i] = 9;
+                x -= 9;
+            }
+            else{
+                bigNum[i] = x;
+                x = 0;
+                break;
+            }
+        }
+        for(int i = 0; i < n ;i++){
+            System.out.print(smallNum[i]);
+        }
+        System.out.print(' ');
+        for(int i = 0; i < n ;i++){
+            System.out.print(bigNum[i]);
+        }
+    }
+}

@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Main {
+    public static int dp(int []a, int n, int s){
+        int []f = new int[s + 1];
+        f[0] = 1;
+        for(int i = 1; i <= n ;i++){
+            for(int j = s; j >= a[i]; j--){
+                if(f[j - a[i]] == 1)
+                    f[j] = 1;
+            }
+        }
+        return f[s];
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t =sc.nextInt();
+        while(t --> 0){
+            int n = sc.nextInt(), s = sc.nextInt();
+            int []a = new int[n + 1];
+            for(int i = 1; i <= n ;i++)
+                a[i] = sc.nextInt();
+            if(dp(a, n, s) == 1) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}

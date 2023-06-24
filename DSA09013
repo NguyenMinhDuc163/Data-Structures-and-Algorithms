@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m;
+vector<int> adj[1005];
+vector<pair<int, int>> edge;
+bool vis[1005];
+
+void init(){
+	cin >> n >> m;
+	memset(adj, false, sizeof(adj));
+	memset(vis, false, sizeof(vis));
+	edge.assign(edge.size(), make_pair(0, 0));
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+		edge.push_back({x, y});
+	}
+}
+
+void dfs(int u, int s, int t){
+	vis[u] = true;
+	for(int x: adj[u]){
+		if((u == s && x == t) || (u == t && x == s))
+			continue;
+		if(!vis[x])
+			dfs(x, s, t);
+	}
+}
+void implement(){
+	init();
+	int cnt = 0;
+	for(int i = 1; i <= n; i++){
+		sort(adj[i].begin(), adj[i].end());
+	}
+	for(int i = 1; i <= n; i++){
+		if(!vis[i]){
+			cnt++;
+			dfs(i, 0, 0);
+		}
+	}
+	vector<pair<int, int>> ans;
+	for(auto x: edge){
+		int u = x.first, v = x.second;
+		int dem = 0;
+		memset(vis, false, sizeof(vis));
+		for(int i = 1; i <= n; i++){
+			if(!vis[i]){
+				dem++;
+				dfs(i, u, v);
+			}
+		}
+		if(dem > cnt)
+			ans.push_back({u, v});
+	}
+	for(auto x: ans){
+		cout << x.first << " " << x.second << " ";
+	}
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

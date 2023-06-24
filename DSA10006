@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, s;
+vector<int> adj[1005];
+vector<string> ans;
+bool vis[1005];
+
+void init(){
+	cin >> n >> m >> s;
+	memset(adj, false, sizeof(adj));
+	ans.clear();
+	memset(vis, false, sizeof(vis));
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+}
+
+void dfs(int u){
+	vis[u] = true;
+	for(int x: adj[u]){
+		if(!vis[x]){
+			ans.push_back(to_string(u) + " " + to_string(x));
+			dfs(x);
+		}
+	}
+}
+void implement(){
+	init();
+	dfs(s);
+	if(ans.size() != n - 1){
+		cout << "-1\n"; 
+		return;
+	}
+// 	for(int i = 1; i <= n; i++){
+// 		if(!vis[i]){
+// 			cout << "-1\n";
+// 			return;
+// 		}
+// 	}
+	for(string x: ans)
+		cout << x << endl;
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+	}
+	return 0;
+}

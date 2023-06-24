@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		int n; cin >> n;
+		cin.ignore();
+		string s; getline(cin, s);
+		set<int> se;
+		string tmp;
+		stringstream ss(s);
+		while(ss >> tmp){
+			if(isdigit(tmp[0])){
+				se.insert(stoi(tmp));
+			}
+		}
+		for(int x: se){
+			cout << x << ' ';
+		}
+		cout << endl;
+	}
+	return 0;
+}

@@ -1,0 +1,25 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static int dp(int n, int x, int y, int z){
+        int []f = new int[105];
+        f[1] = x;
+        for(int i = 2 ; i <= n ;i++){
+            // f[i - 1] + x
+            if( i % 2 == 0)
+                f[i] = Math.min(f[i - 1] + x, f[i/2] + z); //neu chan thi chi them dc thoi
+            else f[i] = Math.min(f[i - 1] + x, f[(i + 1)/2] + z + y); // neu le thi co the copy , xong xoa
+        }
+        return f[n];
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t --> 0){
+            int n = sc.nextInt(), x = sc.nextInt();
+            int y = sc.nextInt(), z = sc.nextInt();
+            System.out.println(dp(n, x, y, z));
+        }
+    }
+}

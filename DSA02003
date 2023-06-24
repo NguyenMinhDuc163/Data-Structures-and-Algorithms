@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, a[100][100], ok;
+string s;
+void init(){
+	cin >> n; ok = 1; s= "";
+	memset(a, false, sizeof(a));
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= n; j++)
+			cin >> a[i][j];
+	}
+}
+
+void Try(int i, int j){
+	if(i == n && j == n){
+		cout << s << ' ';
+		ok = 0;
+	}
+	else{
+		if(i <= n && a[i + 1][j]){
+			s += 'D';
+			a[i + 1][j] = 0;
+			Try(i + 1, j);
+			s.pop_back();
+			a[i + 1][j] = 1;
+		}
+		if(j <= n && a[i][j + 1]){
+			s += 'R';
+			a[i][j + 1] = 0;
+			Try(i, j + 1);
+			s.pop_back();
+			a[i][j + 1] = 1;
+		}
+	}
+}
+void implement(){
+	init();
+	if(a[1][1] && a[n][n]){
+		Try(1, 1);
+		if(ok) cout << "-1";
+	}
+	else cout << "-1";
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

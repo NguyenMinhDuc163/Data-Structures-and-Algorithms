@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t --> 0){
+            int n = sc.nextInt(), s = sc.nextInt(), m = sc.nextInt();
+            int day = s - s/7;
+            if(day * n < m * s) System.out.println("-1");
+            else{
+                 int ans = (m * s) / n;
+                 if((m * s) % n != 0)
+                     ans++;
+                 System.out.println(ans);
+            }
+
+        }
+    }
+}DSA03022

@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+void in(stack<int> st)
+	{
+		vector<int> v;
+		while(!st.empty())
+			{
+				v.push_back(st.top());
+				st.pop();
+			}
+		for(int i = v.size() - 1; i >= 0; i--)
+			cout << v[i] <<' ';
+		cout << endl;
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		string s;
+		stack<int> st;
+		while(cin >> s)
+			{
+				if(s == "push")
+					{
+						int x; cin >> x;
+						st.push(x);
+					}
+				else if(s == "show")
+					{
+						if(!st.empty())
+							in(st);
+						else cout <<"empty\n";
+					}
+				else
+					{
+						if(!st.empty())
+							st.pop();
+						else cout <<"empty\n";
+					}
+			}
+		return 0;
+	}

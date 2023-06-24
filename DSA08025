@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Main {
+    public static int []dx = {-2, -2, -1, -1, +1, +1, 2, 2};
+    public static int []dy = {-1, 1, -2, 2, -2, 2, -1, 1};
+    public static int [][]d = new int[105][105];
+    public static int [][]visited = new int[105][105];
+    public static int s, t, u, v;
+
+    public static int bfs(int i, int j){
+        Queue<AbstractMap.SimpleEntry<Integer, Integer>> q = new LinkedList<>();
+        q.add(new AbstractMap.SimpleEntry<>(i, j));
+        visited[i][j] = 1;
+        while(!q.isEmpty()){
+            AbstractMap.SimpleEntry<Integer, Integer> top = q.poll();
+            if(top.getKey() == u && top.getValue() == v){
+                return d[top.getKey()][top.getValue()];
+            }
+            for(int k = 0; k < 8 ; k++){
+                int i1 = top.getKey() + dx[k];
+                int j1 = top.getValue() + dy[k];
+                if(i1 >= 0 && i1 < 8 && j1 >= 0 && j1 < 8 && visited[i1][j1] == 0){
+                    visited[i1][j1] = 1;
+                    q.add(new AbstractMap.SimpleEntry<>(i1, j1));
+                    d[i1][j1] = d[top.getKey()][top.getValue()] + 1;
+                }
+            }
+        }
+        return -1;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n --> 0){
+            String tmp1 = sc.nextLine();
+            String []tmp2 = tmp1.split(" ");
+            s = tmp2[0].charAt(1) - '0' - 1;
+            t = tmp2[0].charAt(0) - 'a';
+            u = tmp2[1].charAt(1) - '0' - 1;
+            v = tmp2[1].charAt(0) - 'a';
+            Arrays.setAll(visited,i -> new int[visited[0].length]);
+            Arrays.setAll(d,i -> new int[d[0].length]);
+            System.out.println(bfs(s, t));
+        }
+    }
+}

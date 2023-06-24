@@ -1,0 +1,25 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static int dp(String s){
+        int  n = s.length();
+        int [][]f = new int[n + 1][n + 1];
+        for(int i = n - 2; i >= 0; i--){
+            for(int j = i + 1; j < n; j++){
+                if(s.charAt(i) == s.charAt(j)) f[i][j] = f[i + 1][j - 1];
+                else f[i][j] = Math.min(f[i + 1][j], f[i][j - 1]) + 1;
+            }
+        }
+        return f[0][n - 1];
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t --> 0){
+            String s = sc.nextLine();
+            System.out.println(dp(s));
+        }
+    }
+}

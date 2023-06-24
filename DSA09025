@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m, s, t;
+vector<int> adj[1005];
+int path[1005];
+void init(){
+	cin >> n >> m >> s >> t;
+	memset(adj, false, sizeof(adj));
+	memset(path, -1, sizeof(path));
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+	}
+}
+
+void dfs(int u){
+	path[u] = 1;
+	for(int x: adj[u]){
+		if(path[x] == -1){
+			dfs(x);
+			path[x] = u;
+		}
+	}
+}
+void implement(){
+	init();
+	for(int i = 1; i <= n ;i++){
+		sort(adj[i].begin(), adj[i].end());
+	}
+	dfs(s);
+	if(path[t] != -1){
+		stack<int> st;
+		while(s != t){
+			st.push(t);
+			t = path[t];
+		}
+		st.push(s);
+		while(!st.empty()){
+			cout << st.top() << " ";
+			st.pop();
+		}
+	}
+	else cout << "-1";
+}
+int32_t main(){
+	if(fopen("input1.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

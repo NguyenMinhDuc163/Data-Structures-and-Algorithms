@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+vector<int> res;
+void init(){
+	queue<int> q;
+	q.push(9);
+	while(true){
+		int top = q.front(); q.pop();
+		if(top >= 1e18) break;
+		res.push_back(top);
+		q.push(top * 10);
+		q.push(top * 10 + 9);
+	}
+}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		init();
+		vector<int> ans(200);
+		for(int i = 1; i <= 100; i++){
+			for(int x: res){
+				if(x % i == 0){
+					ans[i] = x;
+					break;
+				}
+					
+			}
+		}
+		int t; cin >> t;
+		while(t--){
+			int n; cin >> n;
+			cout << ans[n] << endl;
+		}
+		return 0;
+	}

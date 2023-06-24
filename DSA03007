@@ -1,0 +1,29 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t --> 0){
+            int n = sc.nextInt();
+            Long []a = new Long[n];
+            Long []b = new Long[n];
+            for(int i = 0; i < n ;i++) a[i] = sc.nextLong();
+            for(int i = 0; i < n ;i++) b[i] = sc.nextLong();
+            Arrays.sort(a);
+            Arrays.sort(b, new Comparator<Long>() {
+                public int compare(Long o1, Long o2) {
+                    return o2.compareTo(o1);
+                }
+            });
+            long ans = 0;
+            for(int i = 0; i < n ;i++){
+                ans += (long) a[i] * b[i];
+            }
+            System.out.println(ans);
+        }
+    }
+}

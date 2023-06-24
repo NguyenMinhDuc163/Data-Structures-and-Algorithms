@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		int t; cin >> t;
+		while(t--){
+			int n; cin >> n;
+			priority_queue<int, vector<int>, greater<int>> q;
+			int a[n]; 
+			for(int &x: a){
+				cin >> x;
+				q.push(x);
+			}
+		int ans = 0;
+		while(q.size() > 1)
+			{
+				int t1 = q.top(); q.pop();
+				int t2 = q.top(); q.pop();
+				ans += t1 + t2;
+				ans %= mod;
+				q.push((t1 % mod + t2 % mod) % mod);
+			}
+		cout << ans <<endl;	
+		}
+		return 0;
+	}

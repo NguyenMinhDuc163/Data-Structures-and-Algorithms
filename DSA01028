@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, k, a[100], ok = true;
+vector<int> v;
+void init()
+	{
+		cin >> n >> k;
+		set<int> se;
+		for(int i = 1; i <= n;i++)
+			{
+				int x; cin >> x;
+				se.insert(x);
+				a[i] = i;
+			}
+		v.push_back(0);
+		for(int x: se)
+			v.push_back(x);
+		n = v.size() - 1;	
+	}
+
+void next()
+	{
+		int i = k;
+		while(i >= 1 && a[i] == n - k + i)
+			i--;
+		if(i == 0) ok = 0;
+		else
+			{
+				a[i]++;
+				for(int j = i + 1; j <= k ;j++)
+					a[j] = a[j - 1] + 1;
+			}
+	}
+int32_t main()
+	{
+        ios_base::sync_with_stdio(0);
+        cin.tie(0); cout.tie(0);
+		init();
+		while(ok)
+			{
+				for(int i = 1; i <= k ;i++)
+					{
+						cout << v[a[i]] <<' ';
+					}
+				cout << endl;
+				next();
+			}
+		return 0;
+	}

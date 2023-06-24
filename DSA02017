@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int cot[100], xuoi[100], nguoc[100], a[100][100], ans, x[100];
+
+void init(){
+	ans = 0;
+	memset(a, false, sizeof(a));
+	memset(x, false, sizeof(x));
+	memset(cot, false, sizeof(cot));
+	memset(xuoi, false, sizeof(xuoi));
+	memset(nguoc, false, sizeof(nguoc));
+	for(int i = 1; i <= 8; i++){
+		for(int j = 1; j <= 8; j++)
+			cin >> a[i][j];
+	}
+}
+
+void Try(int i){
+	for(int j = 1; j <= 8; j++){
+		if(!cot[j] && !xuoi[i + j - 1] && !nguoc[8 + i - j]){
+			x[i] = j;
+			cot[j] = xuoi[i + j - 1] = nguoc[8 + i - j] = 1;
+ 			if(i == 8) {
+				int sum = 0;
+				for(int k = 1; k <= 8; k++){
+					sum += a[k][x[k]];
+				}
+				ans = max(ans, sum);
+			}
+			else Try(i + 1);
+			cot[j] = xuoi[i + j - 1] = nguoc[8 + i - j] = 0;
+			}
+		}
+	}
+void implement(){
+	init();
+	Try(1);
+	cout << ans;
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}

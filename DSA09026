@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+//#include<iostream>
+using namespace std ;
+#define int long long
+const int maxn = 1e7 + 7;
+const int mod = 1e9 + 7;
+int n, m , s, t;
+vector<int> adj[1005];
+bool vis[1005];
+int par[1005];
+void init(){
+	cin >> n >> m >> s >> t;
+	memset(adj, false, sizeof(adj));
+	memset(vis, false, sizeof(vis));
+	memset(par, false, sizeof(par));
+	while(m--){
+		int x, y; cin >> x >> y;
+		adj[x].push_back(y);
+	}
+}
+
+void bfs(int u){
+	queue<int> q;
+	q.push(u);
+	vis[u] = true;
+	while(!q.empty()){
+		int v = q.front(); q.pop();
+		for(int x: adj[v]){
+			if(!vis[x]){
+				q.push(x);
+				vis[x] = true;
+				par[x] = v;
+			}
+		}
+	}
+}
+void implement(){
+	init();
+	bfs(s);
+	stack<int> st;
+	if(vis[t]){
+		while(s != t){
+			st.push(t);
+			t = par[t];
+		}
+		st.push(s);
+		while(!st.empty()){
+			cout << st.top() << ' ';
+			st.pop();
+		}
+	}
+	else cout << "-1";
+}
+int32_t main(){
+	if(fopen("input.txt", "r")){
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	}
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	int t; cin >> t;
+	while(t--){
+		implement();
+		cout << endl;
+	}
+	return 0;
+}
